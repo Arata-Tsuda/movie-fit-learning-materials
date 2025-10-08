@@ -18,7 +18,7 @@
       color: #15803d; /* green-700 */
     }
     @media (max-width: 768px) {
-      .tab-btn { font-size: 0.9rem; } /* スマホ時フォント小さめ */
+      .tab-btn { font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -53,10 +53,11 @@
     </aside>
 
     <!-- メインコンテンツ -->
-    <main id="content" class="flex-1 p-6 md:ml-64 hidden text-lg bg-white">
+    <main id="content" class="flex-1 p-4 md:ml-64 hidden text-lg bg-white">
       <div id="home" class="tab-content">
         <h2 class="text-2xl font-bold text-sky-700 mb-4 text-left">ホーム</h2>
-        <p class="text-gray-700">Movie Fitへようこそ！左のメニューから章を選んでください。</p>
+        <p class="text-gray-700 md:block hidden">Movie Fit教材へようこそ！左のメニューから章を選んでください。</p>
+        <p class="text-gray-700 md:hidden">Movie Fit教材へようこそ！上のメニューから章を選んでください。</p>
       </div>
       <div id="ch1" class="tab-content hidden"><h2 class="text-2xl font-bold text-sky-700 text-left">第1章 パソコン基礎</h2></div>
       <div id="ch2" class="tab-content hidden"><h2 class="text-2xl font-bold text-sky-700 text-left">第2章 機材やソフトの準備</h2></div>
@@ -85,7 +86,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const firebaseConfig = {
-        apiKey: "AIzaSyAm1duqnSnsPnxScb8R3SXothEP9YUeeY4",
+        apiKey: "YAIzaSyAm1duqnSnsPnxScb8R3SXothEP9YUeeY4",
         authDomain: "movie-fit-learning-materials.firebaseapp.com",
         projectId: "movie-fit-learning-materials",
       };
