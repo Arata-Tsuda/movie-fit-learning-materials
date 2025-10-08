@@ -189,41 +189,14 @@
     </div>
   </div>
 
-    <!-- スクリプト -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const loginBtn = document.getElementById("login-btn");
-      const logoutBtn = document.getElementById("logout-btn");
-      const loginSection = document.getElementById("login-section");
-      const sidebar = document.getElementById("sidebar");
-      const content = document.getElementById("content");
-
-      // // Firebase 初期化
-const firebaseConfig = {
-  apiKey: "AIzaSyAm1duqnSnsPnxScb8R3SXothEP9YUeeY4",
-  authDomain: "movie-fit-learning-materials.firebaseapp.com",
-  projectId: "movie-fit-learning-materials",
-};
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-const loginBtn = document.getElementById("login-btn");
-const logoutBtn = document.getElementById("logout-btn");
-const loginSection = document.getElementById("login-section");
-const sidebar = document.getElementById("sidebar");
-const content = document.getElementById("content");
-const loginError = document.getElementById("login-error");
-
   <!-- スクリプト -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // Firebase 初期化
       const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-        projectId: "YOUR_PROJECT_ID",
+        apiKey: "AIzaSyAm1duqnSnsPnxScb8R3SXothEP9YUeeY4",
+        authDomain: "movie-fit-learning-materials.firebaseapp.com",
+        projectId: "movie-fit-learning-materials",
       };
       firebase.initializeApp(firebaseConfig);
 
