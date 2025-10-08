@@ -1,38 +1,19 @@
-<div class="flex min-h-screen">
+    <!-- メインコンテンツ -->
+    <main id="content" class="flex-1 p-6 md:ml-64 hidden max-w-5xl mx-auto">
+      <div id="home" class="tab-content">
+        <h2 class="text-3xl font-bold text-sky-700 mb-4 text-left">ホーム</h2>
+        <p class="text-gray-700">Movie Fit教材へようこそ！<br>左のメニューから章を選んでください。</p>
+      </div>
 
-  <!-- サイドバー -->
-  <aside id="sidebar" class="hidden md:block w-64 bg-sky-100 shadow-md">
-    <nav class="p-4 space-y-2 text-base">
-      <button onclick="openTab('home', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">🏠 ホーム</button>
-      <button onclick="openTab('ch1', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第1章 パソコン基礎</button>
-      <button onclick="openTab('ch2', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第2章 機材やソフトの準備</button>
-      <button onclick="openTab('ch3', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第3章 カット</button>
-      <button onclick="openTab('ch4', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第4章 テロップ</button>
-      <button onclick="openTab('ch5', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第5章 アニメーション</button>
-      <button onclick="openTab('ch6', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第6章 画像挿入</button>
-      <button onclick="openTab('ch7', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第7章 音量調整</button>
-      <button onclick="openTab('ch8', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第8章 色調補正とデザイン</button>
-      <button onclick="openTab('ch9', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第9章 書き出しと納品</button>
-      <button onclick="openTab('ch10', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第10章 案件獲得に向けて</button>
-      <button id="logout-btn" class="mt-6 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-base">ログアウト</button>
-    </nav>
-  </aside>
+      <div id="ch1" class="tab-content hidden">
+        <h2 class="text-3xl font-bold text-sky-700 mb-4 text-left">第1章 パソコン基礎</h2>
+        <p class="text-gray-700 mb-4">ここに第1章の教材を表示します。</p>
+        <iframe class="w-full aspect-video rounded-lg shadow" src="https://www.youtube.com/embed/VIDEO_ID1" frameborder="0" allowfullscreen></iframe>
+      </div>
 
-  <!-- メインコンテンツ -->
-  <main id="content" class="flex-1 p-6">
-    <div id="home" class="tab-content">
-      <h2 class="text-3xl font-bold text-sky-700 mb-4 text-left">ホーム</h2>
-      <p class="text-gray-700">Movie Fit教材へようこそ！<br>左のメニューから章を選んでください。</p>
-    </div>
-
-    <div id="ch1" class="tab-content hidden">
-      <h2 class="text-3xl font-bold text-sky-700 mb-4 text-left">第1章 パソコン基礎</h2>
-      <p class="text-gray-700">ここに第1章の教材を表示します。</p>
-    </div>
-
-    <div id="ch2" class="tab-content hidden">
-      <h2 class="text-3xl font-bold text-sky-700 mb-4 text-left">第2章 機材やソフトの準備</h2>
-      <p class="text-gray-700">ここに第2章の教材を表示します。</p>
-    </div>
-  </main>
-</div>
+      <div id="ch2" class="tab-content hidden">
+        <h2 class="text-3xl font-bold text-sky-700 mb-4 text-left">第2章 機材やソフトの準備</h2>
+        <p class="text-gray-700 mb-4">ここに第2章の教材を表示します。</p>
+        <iframe class="w-full aspect-video rounded-lg shadow" src="https://www.youtube.com/embed/VIDEO_ID2" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </main>
