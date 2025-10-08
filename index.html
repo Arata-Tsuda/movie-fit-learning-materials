@@ -2,122 +2,46 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Movie Fit 教材ページ</title>
+  <title>ハンバーガーメニューテスト</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .tab-btn.active {
-      background-color: #86efac; /* green-300 */
-      color: white;
-    }
-  </style>
 </head>
-<body class="bg-white text-gray-800 font-sans text-base sm:text-lg">
+<body class="bg-gray-100 font-sans">
 
-  <!-- ログイン画面 -->
-  <div id="login-section" class="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-sky-50 to-white text-center">
-    <h1 class="text-5xl font-bold text-sky-700 mb-4">Movie Fit ログイン</h1>
-    <p class="text-gray-600 mb-8 text-xl">ゼロからでも安心して学べる動画編集スクール</p>
+  <!-- モバイル用ナビバー -->
+  <header class="md:hidden bg-sky-700 text-white flex items-center justify-between p-4">
+    <h1 class="text-lg font-bold">テストページ</h1>
+    <button id="menu-toggle" class="text-white text-2xl">☰</button>
+  </header>
 
-    <button id="login-btn"
-      class="px-8 py-3 bg-green-500 text-white rounded-full shadow hover:bg-green-600 transition text-xl">
-      Googleでログイン
-    </button>
-
-    <p class="mt-8 text-sm text-gray-500">© 2025 Movie Fit</p>
-  </div>
-
-  <!-- メイン画面 -->
-  <div id="main-section" class="hidden min-h-screen flex flex-col md:flex-row">
-
-    <!-- モバイル用ヘッダー -->
-    <div class="p-4 md:hidden flex justify-between items-center bg-sky-100 shadow">
-      <h2 class="text-2xl font-bold text-sky-700">教材メニュー</h2>
-      <button id="menu-toggle" class="px-4 py-2 bg-sky-500 text-white rounded">☰</button>
-    </div>
+  <div class="flex">
 
     <!-- サイドバー -->
-    <aside id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-sky-100 shadow transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0 md:block p-4 z-50">
-      <!-- スマホ用閉じるボタン -->
-      <div class="flex justify-between items-center mb-6 md:hidden">
-        <h2 class="text-2xl font-bold text-sky-700">教材メニュー</h2>
-        <button id="menu-close" class="px-3 py-1 bg-red-500 text-white rounded">✖</button>
-      </div>
-
-      <nav class="space-y-2">
-        <button class="tab-btn w-full text-left px-4 py-3 rounded active" data-tab="home">🏠 ホーム</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter1">第1章 パソコン基礎</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter2">第2章 機材やソフトの準備</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter3">第3章 カット</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter4">第4章 テロップ</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter5">第5章 アニメーション</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter6">第6章 画像挿入</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter7">第7章 音量調整</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter8">第8章 色調補正とデザイン</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter9">第9章 書き出しと納品</button>
-        <button class="tab-btn w-full text-left px-4 py-3 rounded" data-tab="chapter10">第10章 案件獲得に向けて</button>
+    <aside id="sidebar" class="w-64 bg-white shadow-md fixed md:static inset-y-0 left-0 z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out">
+      <nav class="p-4 space-y-2">
+        <button class="block w-full text-left px-4 py-2 border rounded">🏠 ホーム</button>
+        <button class="block w-full text-left px-4 py-2 border rounded">第1章</button>
+        <button class="block w-full text-left px-4 py-2 border rounded">第2章</button>
+        <button class="block w-full text-left px-4 py-2 border rounded">第3章</button>
       </nav>
     </aside>
 
     <!-- メインコンテンツ -->
-    <main class="flex-1 p-6 bg-white">
-      <div id="home" class="tab-content bg-gradient-to-b from-sky-50 to-white p-6 rounded-xl shadow">
-        <h2 class="text-3xl font-bold text-sky-700 mb-4">ホーム</h2>
-        <p class="text-gray-700">Movie Fit教材へようこそ！<br>左のメニューから章を選んでください。</p>
-      </div>
-
-      <div id="chapter1" class="tab-content hidden bg-white p-6 rounded-xl shadow">
-        <h2 class="text-3xl font-bold text-sky-700 mb-4">第1章 パソコン基礎</h2>
-        <p class="text-gray-700">ここに第1章の教材を表示します。</p>
-      </div>
-
-      <div id="chapter2" class="tab-content hidden bg-white p-6 rounded-xl shadow">
-        <h2 class="text-3xl font-bold text-sky-700 mb-4">第2章 機材やソフトの準備</h2>
-        <p class="text-gray-700">ここに第2章の教材を表示します。</p>
-      </div>
+    <main class="flex-1 p-6 md:ml-64">
+      <h2 class="text-2xl font-bold text-sky-700 mb-4">ハンバーガーテスト</h2>
+      <p>スマホ幅にして「☰」を押すとサイドバーが出入りするか確認してください。</p>
     </main>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const loginBtn = document.getElementById("login-btn");
-      const loginSection = document.getElementById("login-section");
-      const mainSection = document.getElementById("main-section");
-
-      loginBtn.addEventListener("click", function() {
-        loginSection.classList.add("hidden");
-        mainSection.classList.remove("hidden");
-      });
-
-      // タブ切り替え
-      const tabBtns = document.querySelectorAll(".tab-btn");
-      const tabContents = document.querySelectorAll(".tab-content");
-
-      tabBtns.forEach(btn => {
-        btn.addEventListener("click", function() {
-          const tab = this.getAttribute("data-tab");
-          tabContents.forEach(content => content.classList.add("hidden"));
-          document.getElementById(tab).classList.remove("hidden");
-          tabBtns.forEach(b => b.classList.remove("active"));
-          this.classList.add("active");
-        });
-      });
-
-      // ハンバーガーメニュー開閉
+    document.addEventListener("DOMContentLoaded", () => {
       const menuToggle = document.getElementById("menu-toggle");
-      const menuClose = document.getElementById("menu-close");
       const sidebar = document.getElementById("sidebar");
-
-      if (menuToggle) {
-        menuToggle.addEventListener("click", () => {
-          sidebar.classList.remove("-translate-x-full");
-        });
-      }
-      if (menuClose) {
-        menuClose.addEventListener("click", () => {
-          sidebar.classList.add("-translate-x-full");
-        });
-      }
+      menuToggle?.addEventListener("click", () => {
+        sidebar.classList.toggle("-translate-x-full");
+      });
     });
   </script>
+
 </body>
 </html>
