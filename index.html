@@ -216,45 +216,66 @@ const sidebar = document.getElementById("sidebar");
 const content = document.getElementById("content");
 const loginError = document.getElementById("login-error");
 
-// Googleログイン
-loginBtn.addEventListener("click", () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).catch(err => {
-    loginError.textContent = "ログインに失敗しました: " + err.message;
-    loginError.classList.remove("hidden");
-  });
-});
+  <!-- スクリプト -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Firebase 初期化
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+      };
+      firebase.initializeApp(firebaseConfig);
 
-// ログイン状態を監視
-auth.onAuthStateChanged(async (user) => {
-  if (user) {
-    try {
-      const doc = await db.collection("users").doc(user.email).get();
-      if (doc.exists && doc.data().active === true) {
-        loginSection.classList.add("hidden");
-        sidebar.classList.remove("hidden");
-        content.classList.remove("hidden");
-        document.querySelector(".tab-btn").click();
-      } else {
-        loginError.textContent = "このGoogleアカウントではアクセスできません。";
-        loginError.classList.remove("hidden");
-        await auth.signOut();
-      }
-    } catch (e) {
-      loginError.textContent = "Firestoreエラー: " + e.message;
-      loginError.classList.remove("hidden");
-    }
-  } else {
-    loginSection.classList.remove("hidden");
-    sidebar.classList.add("hidden");
-    content.classList.add("hidden");
-  }
-});
+      const auth = firebase.auth();
+      const db = firebase.firestore();
 
-// ログアウト
-logoutBtn.addEventListener("click", () => {
-  auth.signOut();
-});
+      const loginBtn = document.getElementById("login-btn");
+      const logoutBtn = document.getElementById("logout-btn");
+      const loginSection = document.getElementById("login-section");
+      const sidebar = document.getElementById("sidebar");
+      const content = document.getElementById("content");
+      const loginError = document.getElementById("login-error");
+
+      // Googleログイン
+      loginBtn.addEventListener("click", () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider).catch(err => {
+          loginError.textContent = "ログインに失敗しました: " + err.message;
+          loginError.classList.remove("hidden");
+        });
+      });
+
+      // ログイン状態を監視
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          try {
+            const doc = await db.collection("users").doc(user.email).get();
+            if (doc.exists && doc.data().active === true) {
+              loginSection.classList.add("hidden");
+              sidebar.classList.remove("hidden");
+              content.classList.remove("hidden");
+              document.querySelector(".tab-btn").click(); // デフォルトで「ホーム」を開く
+            } else {
+              loginError.textContent = "このGoogleアカウントではアクセスできません。";
+              loginError.classList.remove("hidden");
+              await auth.signOut();
+            }
+          } catch (e) {
+            loginError.textContent = "Firestoreエラー: " + e.message;
+            loginError.classList.remove("hidden");
+          }
+        } else {
+          loginSection.classList.remove("hidden");
+          sidebar.classList.add("hidden");
+          content.classList.add("hidden");
+        }
+      });
+
+      // ログアウト
+      logoutBtn.addEventListener("click", () => {
+        auth.signOut();
+      });
 
       // ハンバーガーメニュー開閉
       const menuToggle = document.getElementById("menu-toggle");
