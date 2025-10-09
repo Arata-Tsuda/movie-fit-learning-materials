@@ -2,242 +2,158 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Movie Fit 教材ページ</title>
+  <title>Movie Fit - 動画編集スクール</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Firebase SDK v8 -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
   <style>
-    .tab-btn.active {
-      background-color: #86efac; /* green-300 */
+    /* 料金の強調表示（白文字＋黒縁取り） */
+    .price-highlight {
+      font-size: 3.5rem; /* text-6xl 相当 */
+      font-weight: 800;
       color: white;
+      -webkit-text-stroke: 2px black; /* 黒い枠線 */
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* キャッチコピー立体感（白文字＋濃いシャドウ） */
+    .headline-shadow {
+      color: white;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    }
+
+    /* CTAボタン（薄緑の塗り＋濃い緑枠） */
+    .cta-btn {
+      font-size: 1.5rem;
+      font-weight: bold;
+      border: 3px solid #065f46; /* 濃い緑 */
+      background-color: #34d399; /* 薄緑 */
+      border-radius: 9999px;
+      color: white;
+      padding: 0.75rem 2.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
   </style>
 </head>
-<body class="bg-white text-gray-800 font-sans text-base sm:text-lg">
+<body class="font-sans bg-white text-gray-800">
 
-  <!-- モバイル用ヘッダー -->
-  <header class="md:hidden bg-sky-700 text-white flex items-center justify-between p-4">
-    <h1 class="text-lg font-bold">Movie Fit 教材</h1>
-    <button id="menu-toggle" class="text-white text-2xl">☰</button>
-  </header>
+  <!-- Hero -->
+  <section class="bg-gradient-to-r from-sky-500 to-blue-700 text-white text-center py-20 px-6">
+    <h1 class="text-5xl font-extrabold mb-4 headline-shadow">
+      ゼロからでも安心。案件を取れる編集力を！
+    </h1>
+    <p class="text-xl mb-8">Movie Fit で、現場で通用するスキルを最短で身につけよう。</p>
+    <a href="#pricing" class="inline-block">
+      <span class="cta-btn">今すぐ申し込む！</span>
+    </a>
+  </section>
 
-  <div class="flex">
-
-    <!-- サイドバー -->
-    <aside id="sidebar" class="w-64 bg-sky-100 shadow-md fixed md:static inset-y-0 left-0 z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out hidden">
-      <nav class="p-4 space-y-2 text-base">
-        <button onclick="openTab('home', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">🏠 ホーム</button>
-        <button onclick="openTab('ch1', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第1章 パソコン基礎</button>
-        <button onclick="openTab('ch2', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第2章 機材やソフトの準備</button>
-        <button onclick="openTab('ch3', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第3章 カット</button>
-        <button onclick="openTab('ch4', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第4章 テロップ</button>
-        <button onclick="openTab('ch5', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第5章 アニメーション</button>
-        <button onclick="openTab('ch6', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第6章 画像挿入</button>
-        <button onclick="openTab('ch7', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第7章 音量調整</button>
-        <button onclick="openTab('ch8', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第8章 色調補正とデザイン</button>
-        <button onclick="openTab('ch9', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第9章 書き出しと納品</button>
-        <button onclick="openTab('ch10', this)" class="tab-btn block w-full text-left px-4 py-2 border rounded">第10章 案件獲得に向けて</button>
-        <button id="logout-btn" class="mt-6 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-base">ログアウト</button>
-        <button id="menu-close" class="md:hidden mt-4 px-4 py-2 bg-sky-600 text-white rounded text-base">× メニューを閉じる</button>
-      </nav>
-    </aside>
-
-    <!-- メインコンテンツ -->
-    <main id="content" class="flex-1 p-6 md:ml-64 hidden">
-
-      <!-- ホーム -->
-      <div id="home" class="tab-content">
-        <h2 class="text-3xl font-bold text-sky-700 mb-4 text-left">ホーム</h2>
-        <p class="text-gray-700">Movie Fit教材へようこそ！<br>左のメニューから章を選んでください。</p>
+  <!-- 特徴 -->
+  <section class="py-16 px-6 max-w-6xl mx-auto text-center">
+    <h2 class="text-4xl font-bold text-sky-700 mb-12">Movie Fitが選ばれる理由</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="p-6 bg-white rounded-lg shadow">
+        <h3 class="text-2xl font-bold mb-4">未経験でも安心</h3>
+        <p>基礎から実務レベルまで体系的に学べるカリキュラムを用意。</p>
       </div>
-
-      <!-- 第1章 -->
-      <div id="ch1" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第1章 パソコン基礎</h2>
-        <h3 class="text-xl font-semibold mb-2">1. パソコンの基本操作</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID1"></iframe>
-        <h3 class="text-xl font-semibold mb-2">2. フォルダ作成と整理</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID2"></iframe>
+      <div class="p-6 bg-white rounded-lg shadow">
+        <h3 class="text-2xl font-bold mb-4">案件獲得サポート</h3>
+        <p>卒業後も活躍できるように、案件獲得の営業サポート付き。</p>
       </div>
-
-      <!-- 第2章 -->
-      <div id="ch2" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第2章 機材やソフトの準備</h2>
-        <h3 class="text-xl font-semibold mb-2">1. 編集素材のダウンロード</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID3"></iframe>
-        <h3 class="text-xl font-semibold mb-2">2. Premiere Proの新規プロジェクト作成</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID4"></iframe>
-        <h3 class="text-xl font-semibold mb-2">3. ワークスペース設定</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID5"></iframe>
-        <h3 class="text-xl font-semibold mb-2">4. ショートカット設定</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID6"></iframe>
-        <h3 class="text-xl font-semibold mb-2">5. 素材読み込みとシーケンス</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID7"></iframe>
+      <div class="p-6 bg-white rounded-lg shadow">
+        <h3 class="text-2xl font-bold mb-4">仲間と学べる</h3>
+        <p>コミュニティで情報交換しながら楽しく学習を進められます。</p>
       </div>
-
-      <!-- 第3章 -->
-      <div id="ch3" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第3章 カット</h2>
-        <h3 class="text-xl font-semibold mb-2">1. カット手順</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID8"></iframe>
-        <h3 class="text-xl font-semibold mb-2">2. カット実践</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID9"></iframe>
-        <h3 class="text-xl font-semibold mb-2">3. カット添削</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID10"></iframe>
-      </div>
-
-      <!-- 第4章 -->
-      <div id="ch4" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第4章 テロップ</h2>
-        <h3 class="text-xl font-semibold mb-2">1. フォントの追加</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID11"></iframe>
-        <h3 class="text-xl font-semibold mb-2">2. テロップ作成手順</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID12"></iframe>
-        <h3 class="text-xl font-semibold mb-2">3. テロップ実践</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID13"></iframe>
-      </div>
-
-      <!-- 第5章 -->
-      <div id="ch5" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第5章 アニメーション</h2>
-        <h3 class="text-xl font-semibold mb-2">1. アニメーションの作成</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID14"></iframe>
-        <h3 class="text-xl font-semibold mb-2">2. エフェクトプリセットの導入</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID15"></iframe>
-      </div>
-
-      <!-- 第6章 -->
-      <div id="ch6" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第6章 画像挿入</h2>
-        <h3 class="text-xl font-semibold mb-2">1. 画像挿入方法</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID16"></iframe>
-      </div>
-
-      <!-- 第7章 -->
-      <div id="ch7" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第7章 音量調整</h2>
-        <h3 class="text-xl font-semibold mb-2">1. 音量調整手順</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID17"></iframe>
-      </div>
-
-      <!-- 第8章 -->
-      <div id="ch8" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第8章 色調補正とデザイン</h2>
-        <h3 class="text-xl font-semibold mb-2">1. 色調補正の準備</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID18"></iframe>
-        <h3 class="text-xl font-semibold mb-2">2. 色調補正実践</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID19"></iframe>
-      </div>
-
-      <!-- 第9章 -->
-      <div id="ch9" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第9章 書き出しと納品</h2>
-        <h3 class="text-xl font-semibold mb-2">1. 書き出し手順</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID20"></iframe>
-      </div>
-
-      <!-- 第10章 -->
-      <div id="ch10" class="tab-content hidden">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">第10章 案件獲得に向けて</h2>
-        <h3 class="text-xl font-semibold mb-2">1. 案件獲得方法</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mb-6 mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID21"></iframe>
-        <h3 class="text-xl font-semibold mb-2">2. 現場で求められる編集者</h3>
-        <iframe class="w-3/4 aspect-video rounded-lg shadow mx-auto md:mx-0" src="https://www.youtube.com/embed/VIDEO_ID22"></iframe>
-      </div>
-
-    </main>
-
-    <!-- ログイン画面 -->
-    <div id="login-section" class="text-center w-full min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-sky-50 to-white">
-      <h1 class="text-4xl font-bold text-sky-700">Movie Fit 教材ログイン</h1>
-      <p class="mt-4 text-gray-600 text-lg">Googleアカウントでログインしてください。</p>
-      <button id="login-btn" class="mt-6 px-6 py-3 bg-green-500 text-white rounded-full shadow hover:bg-green-600 text-lg">
-        Googleでログイン
-      </button>
-      <p id="login-error" class="mt-4 text-red-600 hidden"></p>
     </div>
-  </div>
+  </section>
 
-  <!-- スクリプト -->
+  <!-- 料金プラン -->
+  <section id="pricing" class="bg-gradient-to-r from-sky-50 to-blue-100 py-16">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h2 class="text-4xl font-bold text-sky-700 mb-6">受講料金</h2>
+      <p class="text-gray-600 mb-4 font-semibold text-lg">✨ 今だけの特別価格で受講できます ✨</p>
+
+      <div class="bg-white shadow-xl rounded-lg p-10 inline-block">
+        <p class="text-2xl text-gray-500 line-through mb-2">通常価格 150,000円</p>
+
+        <!-- 強調版 -->
+        <p class="price-highlight inline-block bg-orange-500 px-6 py-2 rounded-lg shadow-lg mb-4">
+          今だけ 100,000円
+        </p>
+
+        <p class="text-gray-700 mb-6 font-semibold">手数料なしで分割払いも可能（3回 / 6回 / 12回）</p>
+
+        <!-- CTAボタン -->
+        <a href="https://checkout.stripe.com/pay/XXXXXX" class="inline-block">
+          <span class="cta-btn">今すぐ申し込む！</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 受講者の声 -->
+  <section class="py-16 px-6 max-w-6xl mx-auto text-center">
+    <h2 class="text-4xl font-bold text-sky-700 mb-12">受講者の声</h2>
+    <div id="testimonial-container" class="grid md:grid-cols-3 gap-8">
+      <!-- JSで差し込み -->
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-gradient-to-r from-sky-50 to-blue-100 py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold text-sky-700 mb-8 text-center">よくある質問</h2>
+      <div class="space-y-6">
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold">Q. 未経験でも大丈夫ですか？</h3>
+          <p class="text-gray-700">はい、基礎から丁寧に解説するので未経験の方でも安心です。</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold">Q. 分割払いは手数料かかりますか？</h3>
+          <p class="text-gray-700">いいえ、手数料なしで3回 / 6回 / 12回払いをご利用いただけます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最終CTA -->
+  <section class="bg-gradient-to-r from-sky-500 to-blue-700 text-white text-center py-16 px-6">
+    <h2 class="text-4xl font-bold mb-6 headline-shadow">あなたも動画編集を始めませんか？</h2>
+    <p class="text-xl mb-8">案件を取れる編集力を最短で習得しよう。</p>
+    <a href="#pricing" class="inline-block">
+      <span class="cta-btn">今すぐ申し込む！</span>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-sky-900 text-white py-6 text-center">
+    <p class="text-sm">&copy; 2025 Movie Fit All Rights Reserved.</p>
+  </footer>
+
+  <!-- JS: 受講者の声の配列管理 -->
   <script>
+    const testimonials = [
+      { text: "未経験から始めて、3ヶ月で案件を受注できました！", name: "30代男性 / 営業職" },
+      { text: "仲間と一緒に学べるのが楽しくて継続できました！", name: "20代女性 / フリーター" },
+      { text: "実践的な内容が多く、副業で収入アップにつながりました！", name: "40代男性 / 会社員" }
+    ];
+
     document.addEventListener("DOMContentLoaded", () => {
-      // Firebase設定（自分のプロジェクトの値に置き換えてください）
-      const firebaseConfig = {
-        apiKey: "AIzaSyAm1duqnSnsPnxScb8R3SXothEP9YUeeY4",
-        authDomain: "movie-fit-learning-materials.firebaseapp.com",
-        projectId: "movie-fit-learning-materials",
-      };
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db = firebase.firestore();
-
-      const loginBtn = document.getElementById("login-btn");
-      const logoutBtn = document.getElementById("logout-btn");
-      const loginSection = document.getElementById("login-section");
-      const sidebar = document.getElementById("sidebar");
-      const content = document.getElementById("content");
-      const loginError = document.getElementById("login-error");
-
-      // Googleログイン
-      loginBtn.addEventListener("click", () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider)
-          .catch(err => {
-            loginError.textContent = "ログインに失敗しました: " + err.message;
-            loginError.classList.remove("hidden");
-          });
+      const container = document.getElementById("testimonial-container");
+      testimonials.forEach(t => {
+        container.innerHTML += `
+          <div class="bg-white shadow-lg p-6 rounded-lg">
+            <p class="mb-4">「${t.text}」</p>
+            <p class="font-bold">${t.name}</p>
+          </div>
+        `;
       });
-
-      // ログイン状態監視
-      auth.onAuthStateChanged(async (user) => {
-        if (user) {
-          const email = user.email;
-          try {
-            const doc = await db.collection("users").doc(email).get();
-            if (doc.exists && doc.data().active) {
-              loginSection.classList.add("hidden");
-              sidebar.classList.remove("hidden");
-              content.classList.remove("hidden");
-              document.querySelector(".tab-btn").click();
-            } else {
-              loginError.textContent = "このアカウントではアクセスできません。";
-              loginError.classList.remove("hidden");
-              auth.signOut();
-            }
-          } catch (e) {
-            loginError.textContent = "Firestoreエラー: " + e.message;
-            loginError.classList.remove("hidden");
-          }
-        } else {
-          loginSection.classList.remove("hidden");
-          sidebar.classList.add("hidden");
-          content.classList.add("hidden");
-        }
-      });
-
-      // ログアウト
-      logoutBtn.addEventListener("click", () => auth.signOut());
-
-      // ハンバーガーメニュー制御
-      const menuToggle = document.getElementById("menu-toggle");
-      const menuClose = document.getElementById("menu-close");
-      menuToggle?.addEventListener("click", () => sidebar.classList.toggle("-translate-x-full"));
-      menuClose?.addEventListener("click", () => sidebar.classList.add("-translate-x-full"));
-
-      // タブ切り替え
-      window.openTab = function(tabId, el) {
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-        document.getElementById(tabId).classList.remove('hidden');
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        el.classList.add('active');
-        if (window.innerWidth < 768) sidebar.classList.add("-translate-x-full");
-      }
     });
   </script>
+
 </body>
 </html>
